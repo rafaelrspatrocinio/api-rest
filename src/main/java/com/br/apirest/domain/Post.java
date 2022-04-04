@@ -1,5 +1,6 @@
 package com.br.apirest.domain;
 
+import com.br.apirest.dto.AuthorDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class Post implements Serializable {
     private String title;
     private String body;
 
-    private User author;
+    private AuthorDTO author;
 
     @Override
     public boolean equals(Object o) {
