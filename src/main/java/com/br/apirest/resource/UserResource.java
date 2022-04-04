@@ -50,4 +50,24 @@ public class UserResource {
         //Retorna uma resposta vazia com cod 201 e com um cabeçalho com novo recurso criado
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteByIde(@PathVariable String id){
+
+        service.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody UserDTO objDTO){
+
+        User obj = service.fromDTO(objDTO);
+
+        obj.setId(id);
+
+        service.update(obj);
+
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -4,7 +4,9 @@ import com.br.apirest.domain.User;
 import com.br.apirest.dto.UserDTO;
 import com.br.apirest.exception.ObjetcNotFoundException;
 import com.br.apirest.repository.UserRepository;
+import com.br.apirest.resource.exception.ResourceExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -33,5 +35,21 @@ public class UserService {
 
     public User fromDTO(UserDTO userDTO){
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+    }
+
+    public void delete(String id){
+       findById(id);
+       repository.deleteById(id);
+    }
+
+    public User update(User obj) {
+        User newObj = findById(obj.getId());
+        updateData(newObj, obj);
+        return repository.save(newObj);
+    }
+
+    private void updateData(User newObj, User obj) {
+        newObj.setName(obj.getName());
+        newObj.setEmail(obj.getEmail());
     }
 }
