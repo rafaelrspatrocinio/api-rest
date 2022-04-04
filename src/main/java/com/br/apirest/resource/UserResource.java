@@ -1,5 +1,6 @@
 package com.br.apirest.resource;
 
+import com.br.apirest.domain.Post;
 import com.br.apirest.domain.User;
 import com.br.apirest.dto.UserDTO;
 import com.br.apirest.servises.UserService;
@@ -69,5 +70,13 @@ public class UserResource {
         service.update(obj);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+
+        User obj = service.findById(id);
+
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
