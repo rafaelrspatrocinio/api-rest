@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,5 +27,10 @@ public class PostService {
     public List<Post> findByTitle(String text){
 
         return repository.buscaTitulo(text);
+    }
+
+    public List<Post> consulta(String text, Date minDate, Date maxDate){
+        maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+        return repository.buscaTodos(text, minDate, maxDate);
     }
 }
